@@ -1,0 +1,96 @@
+from fastapi . testclient import TestClient
+from app import api , SalePrice
+import json
+client = TestClient(api)
+null = None
+test_data = {
+    "MSSubClass": 20,
+    "MSZoning": "RL",
+    "LotFrontage": 84.0,
+    "LotArea": 11670,
+    "Street": "Pave",
+    "Alley": null,
+    "LotShape": "IR1",
+    "LandContour": "Lvl",
+    "Utilities": "AllPub",
+    "LotConfig": "Corner",
+    "LandSlope": "Gtl",
+    "Neighborhood": "Somerst",
+    "Condition1": "RRNn",
+    "Condition2": "Norm",
+    "BldgType": "1Fam",
+    "HouseStyle": "1Story",
+    "OverallQual": 9,
+    "OverallCond": 5,
+    "YearBuilt": 2006,
+    "YearRemodAdd": 2006,
+    "RoofStyle": "Hip",
+    "RoofMatl": "CompShg",
+    "Exterior1st": "VinylSd",
+    "Exterior2nd": "ImStucc",
+    "MasVnrType": "Stone",
+    "MasVnrArea": 302.0,
+    "ExterQual": "Ex",
+    "ExterCond": "TA",
+    "Foundation": "PConc",
+    "BsmtQual": "Ex",
+    "BsmtCond": "Gd",
+    "BsmtExposure": "No",
+    "BsmtFinType1": "Unf",
+    "BsmtFinSF1": 0,
+    "BsmtFinType2": "Unf",
+    "BsmtFinSF2": 0,
+    "BsmtUnfSF": 1905,
+    "TotalBsmtSF": 1905,
+    "Heating": "GasA",
+    "HeatingQC": "Ex",
+    "CentralAir": "Y",
+    "Electrical": "SBrkr",
+    "1stFlrSF": 1905,
+    "2ndFlrSF": 0,
+    "LowQualFinSF": 0,
+    "GrLivArea": 1905,
+    "BsmtFullBath": 0,
+    "BsmtHalfBath": 0,
+    "FullBath": 2,
+    "HalfBath": 0,
+    "BedroomAbvGr": 3,
+    "KitchenAbvGr": 1,
+    "KitchenQual": "Ex",
+    "TotRmsAbvGrd": 8,
+    "Functional": "Typ",
+    "Fireplaces": 1,
+    "FireplaceQu": "Gd",
+    "GarageType": "Attchd",
+    "GarageYrBlt": 2006.0,
+    "GarageFinish": "Fin",
+    "GarageCars": 3,
+    "GarageArea": 788,
+    "GarageQual": "TA",
+    "GarageCond": "TA",
+    "PavedDrive": "Y",
+    "WoodDeckSF": 0,
+    "OpenPorchSF": 191,
+    "EnclosedPorch": 0,
+    "3SsnPorch": 0,
+    "ScreenPorch": 0,
+    "PoolArea": 0,
+    "PoolQC": null,
+    "Fence": null,
+    "MiscFeature": null,
+    "MiscVal": 0,
+    "MoSold": 3,
+    "YrSold": 2007,
+    "SaleType": "WD",
+    "SaleCondition": "Normal"
+}
+request_body = test_data
+
+def test_read_unitprice():
+    response = client.post("/unitprice",json = request_body)  # Make sure to use the correct HTTP method
+    assert response.status_code == 200
+    data = response.json()
+    print('Test result: ', data, 'Expected response: {"SalePrice": 306349.3679834289}')
+    assert data == {"SalePrice": 306349.3679834289}, 'Unexpected response' 
+    
+    
